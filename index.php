@@ -1,1 +1,1 @@
-<?php include_once("clicktozoom.html")  ?>
+<?php include_once("home.html") ?>
