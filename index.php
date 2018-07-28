@@ -1,1 +1,1 @@
-<?php include_once("sfmap.html") ?>
+<?php include_once("clicktozoom.html") ?>
