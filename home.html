@@ -206,6 +206,9 @@
       })
       .attr("x", 3)
       .attr("dy", ".35em")
+      .style("fill", function(d) {
+        return color(d.name);
+      })
       .text(function(d) {
         return d.name;
       });
