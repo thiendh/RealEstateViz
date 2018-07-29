@@ -37,7 +37,7 @@
       width = 900 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
-    var parseDate = d3.time.format("%Y%m%d").parse;
+    var parseTime = d3.time.format("%Y%m%d").parse;
 
     var x = d3.time.scale()
       .range([0, width]);
@@ -73,9 +73,9 @@
     d3.tsv("data-temp.tsv", type, function(error, data) {
         if (error) throw error;});
 
-    color.domain(d3.keys(data[0]).filter(function(key) {
-      return key !== "date";
-    }));
+    // color.domain(d3.keys(data[0]).filter(function(key) {
+    //   return key !== "date";
+    // }));
 
     data.forEach(function(d) {
       d.date = parseDate(d.date);
