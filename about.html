@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <style>
+    body {
+      font: 12px sans-serif;
+      background-color: whitesmoke;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #e7e7e7;
+        background-color: #f3f3f3;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: #666;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
+    li a.active {
+        color: white;
+        background-color: #4CAF50;
+    }
+  </style>
+</head>
+
+<body>
+  <ul>
+    <li><a class="active" href="home.html">$</a></li>
+    <li><a href="sqft.html">$/SQFT</a></li>
+    <li><a href="dom.html">Days On Market</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <p style="text-align:center"><b style='text-align: center'><span style="font-family:Arial,sans-serif">CS-498 Data
+  Visualization - Final Project</span></b></p><p align='center' style='text-align:center'><b><span style="font-family:Arial,sans-serif">Real Estate
+  Market and Home Estimated Value</span></b></p><p align='center' style='text-align:center'><span style="font-size:9.0pt;font-family:Arial,sans-serif">By Thien Do - 7/29/2018</span></p><p>&nbsp;</p><p><span style="font-size:9.0pt;font-family:Arial,sans-serif">My project shows real estate market trend and home estimated value of a specific property in San Francisco. The property is a 1 bedroom 1.5 bathroom loft in South of Market (SOMA) neighborhood. The presentation data uses MLS data and filtered for 1 bedroom loft sales in SOMA since 2000. It&#39;s interesting to see the market trend overall with Dotcom and Real Estate bubbles.&nbsp;</span></p><p>&nbsp;</p><p><span style="font-size:9.0pt;font-family:Arial,sans-serif">The presentation also
+  shows the estimated home value of the property base on the average sales and
+  average $/sqft. The large gap between sales / selling
+  price and listing price also indicates that 1 bedroom
+  loft is in high demand.</span></p><p>&nbsp;</p><p><b><span style="font-size:9.0pt;font-family:Arial,sans-serif">Structure & Scene:</span></b><span style="font-size:9.0pt;font-family:Arial,sans-serif"> Interactive Slideshow</span></p><p>Each scene includes an interactive char with annotations and mouseover. User can explore the data within each slideshow.&nbsp;</p><p><span style="font-size:9.0pt;font-family:Arial,sans-serif">There are 3 scenes:</span></p><ul><li>Sales Price vs. Listing Price: shows average sales / listing dollar amount for each year from 2000 - 2018 (as of 7/28/18). This gives user an estimate of how much the property valuation is and how much it should be listed for.</li>&nbsp;<li>$/SQFT: show average sales dollar / sqft and average listing dollar / sqft - similiar trend line with Sales and Listing Price. This chart confirms and creates a range for the property valuation.</li> &nbsp; <li>Days on Market: Estimate how long the property will stay on the market.</li> &nbsp;</ul><p><b><span style="font-size:9.0pt;font-family:Arial,sans-serif">Annotations:</span></b><span style="font-size:9.0pt;font-family:Arial,sans-serif"> There are 4 annotations on the chart. They
+  point out interesting points with market trend:</span></p><ul><li><span style="font-size:7.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span style="font-size:9.0pt;font-family:Arial,sans-serif">Dotcom bubble bust and 9/11 attack - the lowest sales point.</span></li>&nbsp;
+  &nbsp;
+  <li><span style="font-size:7.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span><span style="font-size:9.0pt;font-family:Arial,sans-serif">Real Estate Bubble started around 2005 and busted in 2008.</span></li></ul><p><span style="font-size:9.0pt;font-family:Arial,sans-serif">The other 2 annotations shows the last sale of the property back in 08/2011 at
+  $500,000, and estimated value in 2018 is $930,000.</span></p><p>&nbsp;</p><p><span style="font-size:9.0pt;font-family:Arial,sans-serif"><strong>Parameters and triggers:&nbsp;</strong></span></p><p>Triggers via navigation menu and mouseover.&nbsp;</p><p>Parameter is changed based on scenes. The y axis of 1st chart (dollar amount) shows $ in thousands,&nbsp;2nd chart ($/sqft) shows $ in hundreds, days on market chart show number of days.</p><p>
+  </p><p><strong>Credit / Sources:</strong></p><p>https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91</p><p>https://stackoverflow.com/questions/21639305/d3js-take-data-from-an-array-instead-of-a-file</p><p>&nbsp;</p></body>

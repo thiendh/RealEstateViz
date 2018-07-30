@@ -2,22 +2,18 @@
 <html>
 
 <head>
+  <a href="home1.html"> Dollars </a> -
+  <a href="home2.html"> SQFT </a> -
+  <a href="home3.html"> DOM </a>
+  <form id="dimensions">
+  <input  type='radio' id="dollar" name="mode" checked>$</input>
+  <input type='radio' id="dollarsqft" name="mode">$/SQFT</input>
+	<input type='radio' id="dom" name="mode">Days On Market</input>
+</form>
   <script data-require="d3@3.5.3" data-semver="3.5.3" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
-  <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
   <style>
     body {
-      font: 12px sans-serif;
-      background-color: whitesmoke;
-    }
-    svg {
-       background-color: white;
-       //font-family: 'Lato';
-    }
-    .annotation-note-title, text.title {
-     font-weight: bold;
-    }
-    text.title {
-     font-size: 1.2em;
+      font: 10px sans-serif;
     }
 
     .axis path,
@@ -27,58 +23,21 @@
       shape-rendering: crispEdges;
     }
 
-    /* .x.axis path {
+    .x.axis path {
       display: none;
-    } */
+    }
 
     .line {
       fill: none;
       stroke: darkred;
       stroke-width: 1.5px;
     }
-
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        border: 1px solid #e7e7e7;
-        background-color: #f3f3f3;
-    }
-
-    li {
-        float: left;
-    }
-
-    li a {
-        display: block;
-        color: #666;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-
-    li a:hover:not(.active) {
-        background-color: #ddd;
-    }
-
-    li a.active {
-        color: white;
-        background-color: #4CAF50;
-    }
   </style>
 </head>
 
 <body>
-  <ul>
-    <li><a class="active" href="home.html">$</a></li>
-    <li><a href="sqft.html">$/SQFT</a></li>
-    <li><a href="dom.html">Days On Market</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-
   <script>
-    var myData = "date	Selling Price	Listing Price\n\
+    var myData1 = "date	Average of Selling Price	Average of Listing Price\n\
 2000	507960	489026\n\
 2001	429306	436029\n\
 2002	429944	427933\n\
@@ -98,49 +57,95 @@
 2016	894297	863835\n\
 2017	867511	850425\n\
 2018	937750	895227\n";
+var myData2 = "date	Average of Selling Price	Average of Listing Price\n\
+2000	507960	489026\n\
+2001	429306	436029\n\
+2002	429944	427933\n\
+2003	460115	462899\n\
+2004	546367	530298\n\
+2005	663920	619000\n\
+2006	656163	650148\n\
+2007	675535	674364\n\
+2008	630839	642571\n\
+2009	544883	555301\n\
+2010	538404	547351\n\
+2011	525476	530653\n\
+2012	556680	544348\n\
+2013	714364	660361\n\
+2014	788708	736078\n\
+2015	911885	859038\n\
+2016	894297	863835\n\
+2017	867511	850425\n\
+2018	937750	895227\n";
+    d3.select("#dimensions").on("change", changeIt)
+    function changeIt() {
+      var form = document.getElementById("dimensions")
+      var form_val;
+      for(var i=0; i<form.length; i++){
+        if(form[i].checked){
+          form_val = form[i].id;}}
 
-    var margin = {
-        top: 20,
-        right: 80,
-        bottom: 30,
-        left: 80
-      },
-      width = 1080 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      console.log(form_val);
+      if (form_val == 'dollar') {
+        drawMyData(myData1);
+      } else if (form_val == 'dollarsqft') {
+        drawMyData(myData1);
+      } else {
+         // draw dom
+      }
+    }
+  // SETUP stuff
+  var margin = {
+      top: 20,
+      right: 80,
+      bottom: 30,
+      left: 50
+    },
+    width = 1080 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-    var parseDate = d3.time.format("%Y").parse;
+  var parseDate = d3.time.format("%Y").parse;
 
-    var x = d3.time.scale()
-      .range([0, width]);
+  var x = d3.time.scale()
+    .range([0, width]);
 
-    var y = d3.scale.linear()
-      .range([height, 0]);
+  var y = d3.scale.linear()
+    .range([height, 0]);
 
-    var color = d3.scale.category10();
+  var color = d3.scale.category10();
 
-    var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom");
+  var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
 
-    var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left");
+  var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
 
-    var line = d3.svg.line()
-      .interpolate("basis")
-      .x(function(d) {
-        return x(d.date);
-      })
-      .y(function(d) {
-        return y(d.price);
-      });
+  var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) {
+      return x(d.date);
+    })
+    .y(function(d) {
+      return y(d.temperature);
+    });
 
-    var svg = d3.select("body").append("svg")
-      .attr("width", width + margin.left + margin.right + 30)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right + 30)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+
+
+
+
+  drawMyData(myData1);
+  function drawMyData(myData) {
+    //get rid of everything and re-draw
+  	d3.selectAll(".city").remove();
     var data = d3.tsv.parse(myData);
 
     color.domain(d3.keys(data[0]).filter(function(key) {
@@ -157,7 +162,7 @@
         values: data.map(function(d) {
           return {
             date: d.date,
-            price: +d[name]
+            temperature: +d[name]
           };
         })
       };
@@ -170,12 +175,12 @@
     y.domain([
       d3.min(cities, function(c) {
         return d3.min(c.values, function(v) {
-          return v.price;
+          return v.temperature;
         });
       }),
       d3.max(cities, function(c) {
         return d3.max(c.values, function(v) {
-          return v.price;
+          return v.temperature;
         });
       })
     ]);
@@ -187,9 +192,9 @@
       .attr('class', 'legend');
 
     legend.append('rect')
-      .attr('x', 380)
+      .attr('x', 50)
       .attr('y', function(d, i) {
-        return i * 20 + 30;
+        return i * 20;
       })
       .attr('width', 10)
       .attr('height', 10)
@@ -198,11 +203,10 @@
       });
 
     legend.append('text')
-      .attr('x', 392)
+      .attr('x', 62)
       .attr('y', function(d, i) {
-        return (i * 20) + 39;
+        return (i * 20) + 9;
       })
-      .style("font-size","16px")
       .text(function(d) {
         return d.name;
       });
@@ -220,90 +224,7 @@
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Dollar ($)");
-
-    //draw annotations
-    svg.append("circle")
-      .attr("cx", 340)
-      .attr("cy", 330)
-      .attr("r", 70)
-      .attr("fill", "red")
-      .attr("opacity", .2)
-      .attr("stroke","darkred");
-
-    svg.append("text")
-      .attr("x", 340)
-      .attr("y", 330)
-      .attr("text-anchor", "middle")
-      .style("font-size", "14px")
-      .text("Real Estate Bubble");
-
-    svg.append("circle")
-      .attr("cx", 590)
-      .attr("cy", 390)
-      .attr("r", 8)
-      .attr("fill", "red")
-      .attr("stroke","darkred");
-
-    svg.append("text")
-      .attr("x", 587)
-      .attr("y", 395)
-      .attr("text-anchor", "right")
-      .style("font-size", "14px")
-      .text("$ - Last Sale 08/2011");
-
-    svg.append("circle")
-      .attr("cx", 920)
-      .attr("cy", 20)
-      .attr("r", 8)
-      .attr("fill", "lightgreen")
-      .attr("stroke","darkgreen");
-
-    svg.append("text")
-      .attr("x", 917)
-      .attr("y", 24)
-      .attr("text-anchor", "right")
-      .style("font-size", "14px")
-      .text("$ - Est. Value");
-
-
-    //draw dotcom
-    svg.append("circle")
-        .attr("cx", 80)
-        .attr("cy", 445)
-        .attr("r", 5)
-        .attr("fill", "darkred")
-        .attr("stroke","darkred");
-
-    svg.append("line")
-        .attr("x1", 80)
-        .attr("y1", 440)
-        .attr("x2", 80)
-        .attr("y2", 400)
-        .attr("strokewidth", 2)
-        .attr("stroke", "darkred");
-
-    svg.append("text")
-        .attr("x", (width / 2))
-        .attr("y", 10)
-        .attr("text-anchor", "middle")
-        .style("font-size", "20px")
-        .style("text-decoration", "underline")
-        .text("Sales Price vs. Listing Price");
-
-    svg.append("text")
-        .attr("x", 80)
-        .attr("y", 395)
-        .attr("text-anchor", "middle")
-        .style("font-size", "12px")
-        .text("Dotcom Bubble Pops");
-
-    svg.append("text")
-        .attr("x", 80)
-        .attr("y", 380)
-        .attr("text-anchor", "middle")
-        .style("font-size", "12px")
-        .text("9/11 Attack");
+      .text("Dollar($)");
 
     var city = svg.selectAll(".city")
       .data(cities)
@@ -327,22 +248,24 @@
         };
       })
       .attr("transform", function(d) {
-        return "translate(" + x(d.value.date) + "," + y(d.value.price) + ")";
+        return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")";
       })
       .attr("x", 3)
       .attr("dy", ".35em")
       .style("fill", function(d) {
         return color(d.name);
+      })
+      .text(function(d) {
+        return d.name;
       });
-
 
     var mouseG = svg.append("g")
       .attr("class", "mouse-over-effects");
 
-    mouseG.append("path") // this is the gray vertical line to follow mouse
+    mouseG.append("path") // this is the black vertical line to follow mouse
       .attr("class", "mouse-line")
       .style("stroke", "gray")
-      .style("stroke-width", ".5px")
+      .style("stroke-width", "1px")
       .style("opacity", "0");
 
     var lines = document.getElementsByClassName('line');
@@ -423,7 +346,7 @@
             return "translate(" + mouse[0] + "," + pos.y +")";
           });
       });
-
+    }
   </script>
 </body>
 
